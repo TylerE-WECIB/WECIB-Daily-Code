@@ -47,8 +47,8 @@ public class JavaQuickMaths {
         //    - Convert the integer to a char (ASCII representation) and print
         double intToDouble = userInt; //implicitly casts userInt as a double
         System.out.printf("\n\nImplicit cast (int → double): %.1f",intToDouble);
-        System.out.printf("\nExplicit cast (double → int): %d",(int)userDecimal);
-        System.out.printf("\nCasting int to char (ASCII): %c",(char)userInt);
+        System.out.printf("\nExplicit cast (double → int): %d",(int)userDecimal); //explicit double -> int
+        System.out.printf("\nCasting int to char (ASCII): %c",(char)userInt); //explicit int -> char
 
 
         
@@ -77,7 +77,7 @@ public class JavaQuickMaths {
 
         
         // Close the Scanner object
-        scanner.close();
+        scanner.close(); //we don't want memory links no siree
     //}
     }
 }
