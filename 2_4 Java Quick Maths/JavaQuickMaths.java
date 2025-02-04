@@ -38,7 +38,7 @@ public class JavaQuickMaths {
         scanner.nextLine(); //flushing the buffer
         System.out.print("Enter a word: ");
         String userString = scanner.nextLine();
-        System.out.printf("You entered integer: %d\nYou entered word: %s",userInt,userString);
+        System.out.printf("You entered integer: %d\nYou entered string: %s",userInt,userString);
 
 
         // 4. Demonstrate type casting
