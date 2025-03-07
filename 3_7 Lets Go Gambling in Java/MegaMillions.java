@@ -36,14 +36,57 @@ public class MegaMillions {
         //like the guy from deltarune?
 
         //number selection
-        String quickPickChoice = getQuickPickChoice();
+        int[] userNums = new int[5];
+        int megaballValue = 0;
+        String quickPickChoice = getYesNo("Do you want to Quick Pick?");
+
+        if(quickPickChoice.equals("yes")){
+            userNums = generateNumbers();
+            megaballValue = random.nextInt(1,26);
+            System.out.printf("Your Quick Pick: %s Mega Ball: %d\n", Arrays.toString(userNums),megaballValue);
+
+        } else if(quickPickChoice.equals("no")) {
+            //manual generation
+            userNums = new int[5];
+            for(int i = 0; i < userNums.length; i++){
+                System.out.printf("Type #%d/5. Must be between 1 and 70 (inclusive): ",i+1);
+                int nextNumber = getValidNumber(1,70);
+                while(contains(userNums,nextNumber)){
+                    System.out.print("You already guessed that number >:(  guess a different one: ");
+                    nextNumber = getValidNumber(1,70);
+                }
+                userNums[i] = nextNumber;
+            }
+            System.out.print("Type Megaball Value. Must be between 1 and 25 (inclusive): ");
+            megaballValue = getValidNumber(1,25);
+            System.out.printf("Your Choices: %s Mega Ball: %d\n", Arrays.toString(userNums),megaballValue);
+        }else{
+            System.out.println("Yo something goofed up with quick pick choice somehow cause it equals " + quickPickChoice);
+        }
+
+        String megaplierChoice = getYesNo("Do you want to add Megaplier for $1?");
+        int megaplier = 0;
+        if(megaplierChoice.equals("yes")){
+            megaplier = getRandomMegaplier();
+//            System.out.println("Megaplier Drawn: x" + megaplier);
+        }
 
         //ticket purchase
+        int ticketCost = 2 + (megaplierChoice.equals("yes") ? 1:0);
 
         //draw numbers
         int[] randomNumbers = generateNumbers();
+        int actualMegaball = random.nextInt(1,26);
 
         //check results
+        System.out.println("\n" + "=".repeat(38) + "\n         WINNING NUMBERS:\n" + "=".repeat(38));
+        System.out.printf("%s Mega Ball: %d\n", Arrays.toString(randomNumbers),actualMegaball);
+        if(megaplierChoice.equals("yes")){
+            System.out.printf("Megaplier Drawn: x%d\n",megaplier);
+        }
+        System.out.println("=".repeat(38));
+
+        int roundWinnings = getPrize(countMatches(userNums,randomNumbers),(megaballValue == actualMegaball));
 
         //update balance
         updateBalance();
@@ -112,8 +155,28 @@ public class MegaMillions {
     }
 
     // TODO: Determine the prize amount based on matches
-    public static void getPrize(int matchCount, boolean megaBallMatch){
-
+    public static int getPrize(int matchCount, boolean megaBallMatch){
+        switch (matchCount){
+            case 5:
+                if(megaBallMatch) return 100000000;
+                return 1000000;
+            case 4:
+                if(megaBallMatch) return 10000;
+                return 500;
+            case 3:
+                if(megaBallMatch) return 200;
+                return 10;
+            case 2:
+                if(megaBallMatch) return 10;
+                return 0;
+            case 1:
+                if(megaBallMatch) return 4;
+                return 0;
+            case 0:
+                if(megaBallMatch) return 2;
+                return 0;
+        }
+        return 0;
     }
 
     // TODO: Get a random Megaplier value (2x, 3x, 4x, or 5x)
@@ -121,8 +184,8 @@ public class MegaMillions {
         return random.nextInt(2,6);
     }
 
-    public static String getQuickPickChoice(){
-        System.out.println("Do you want to Quick Pick? (yes/no): ");
+    public static String getYesNo(String prompt){
+        System.out.print(prompt + " (yes/no): ");
         String choice = scanner.nextLine();
         while(choice.isEmpty()){
             choice = scanner.nextLine();
