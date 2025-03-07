@@ -65,7 +65,7 @@ public class MegaMillions {
         }
 
         String megaplierChoice = getYesNo("Do you want to add Megaplier for $1?");
-        int megaplier = 0;
+        int megaplier = 1;
         if(megaplierChoice.equals("yes")){
             megaplier = getRandomMegaplier();
 //            System.out.println("Megaplier Drawn: x" + megaplier);
@@ -86,8 +86,8 @@ public class MegaMillions {
         }
         System.out.println("=".repeat(38));
 
-        int roundWinnings = getPrize(countMatches(userNums,randomNumbers),(megaballValue == actualMegaball));
-
+        int roundWinnings = getPrize(countMatches(userNums,randomNumbers),(megaballValue == actualMegaball)) * megaplier;
+        System.out.println("You won: $" + roundWinnings);
         //update balance
         updateBalance();
     }
