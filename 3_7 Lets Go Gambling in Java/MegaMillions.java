@@ -36,9 +36,15 @@ public class MegaMillions {
         //like the guy from deltarune?
 
         //number selection
+        String quickPickChoice = getQuickPickChoice();
+
         //ticket purchase
+
         //draw numbers
+        int[] randomNumbers = generateNumbers();
+
         //check results
+
         //update balance
         updateBalance();
     }
@@ -68,8 +74,20 @@ public class MegaMillions {
     }
 
     // TODO: Get a valid number input from the user within a given range
-    public static void getValidNumber(){
-
+    public static int getValidNumber(int min, int max){
+        int finalnum = min-1;
+        while(finalnum < min || finalnum > max){
+            if(scanner.hasNextInt()) {
+                finalnum = scanner.nextInt();
+                if(finalnum < min || finalnum > max){
+                    System.out.printf("Invalid Input. Must be an integer between %d and %d (inclusive): ",min,max);
+                }
+            }else{
+                System.out.printf("Invalid Input. Must be an integer between %d and %d (inclusive): ",min,max);
+                scanner.next();
+            }
+        }
+        return finalnum;
     }
     // TODO: Check if an array contains a specific number
     public static boolean contains(int[] array, int number){
@@ -82,8 +100,15 @@ public class MegaMillions {
     }
 
     // TODO: Count matching numbers between user and winning numbers
-    public static int countMatches(){
-        return 0;
+    public static int countMatches(int[] userNums, int[] winingNums){
+        int matches = 0;
+        for(int i: userNums){
+            if(contains(winingNums,i)){
+                matches++;
+            }
+        }
+
+        return matches;
     }
 
     // TODO: Determine the prize amount based on matches
@@ -94,5 +119,19 @@ public class MegaMillions {
     // TODO: Get a random Megaplier value (2x, 3x, 4x, or 5x)
     public static int getRandomMegaplier(){
         return random.nextInt(2,6);
+    }
+
+    public static String getQuickPickChoice(){
+        System.out.println("Do you want to Quick Pick? (yes/no): ");
+        String choice = scanner.nextLine();
+        while(choice.isEmpty()){
+            choice = scanner.nextLine();
+        }
+        while(!choice.equalsIgnoreCase("yes") && !choice.equalsIgnoreCase("no")){
+            //System.out.println("current choice is " + choice);
+            System.out.println("Invalid. Must be yes/no: ");
+            choice = scanner.nextLine();
+        }
+        return choice.toLowerCase();
     }
 }
