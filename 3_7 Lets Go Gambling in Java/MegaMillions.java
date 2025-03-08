@@ -27,9 +27,9 @@ public class MegaMillions {
     // TODO: Run the game loop (handle multiple rounds of play)
     public static void runGame(){
         String keep_playing = "yes";
-        while(keep_playing.equals("yes") && (int)balance > 0) {
+        while(keep_playing.equals("yes") && (int)balance >= 2) {
             playRound();
-            if((int)balance > 0) keep_playing = getYesNo("Do you want to play again?");
+            if((int)balance >= 2) keep_playing = getYesNo("Do you want to play again?");
         }
     }
 
@@ -66,8 +66,11 @@ public class MegaMillions {
         }else{
             System.out.println("Yo something goofed up with quick pick choice somehow cause it equals " + quickPickChoice);
         }
+        String megaplierChoice = "no";
+        if((int)balance - 2 >= 1){
+            megaplierChoice = getYesNo("Do you want to add Megaplier for $1?");
+        }
 
-        String megaplierChoice = getYesNo("Do you want to add Megaplier for $1?");
         int megaplier = 1;
         if(megaplierChoice.equals("yes")){
             megaplier = getRandomMegaplier();
@@ -90,6 +93,8 @@ public class MegaMillions {
         System.out.println("=".repeat(38));
 
         int roundWinnings = getPrize(countMatches(userNums,randomNumbers),(megaballValue == actualMegaball)) * megaplier;
+        //roundWinnings = getPrize(5,true) * megaplier;
+        //
         System.out.println("You won: $" + roundWinnings);
         //update balance
         updateBalance(ticketCost, roundWinnings);
