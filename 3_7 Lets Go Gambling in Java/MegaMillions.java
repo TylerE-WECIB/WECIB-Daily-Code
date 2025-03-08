@@ -93,8 +93,9 @@ public class MegaMillions {
         System.out.println("=".repeat(38));
 
         int roundWinnings = getPrize(countMatches(userNums,randomNumbers),(megaballValue == actualMegaball)) * megaplier;
+        //debug line
         //roundWinnings = getPrize(5,true) * megaplier;
-        //
+
         System.out.println("You won: $" + roundWinnings);
         //update balance
         updateBalance(ticketCost, roundWinnings);
