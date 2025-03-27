@@ -20,14 +20,16 @@ public class MegaMillions {
     // TODO: Initialize the game (set balance, print welcome message)
     public static void initializeGame(){
         balance = 50.0;
-        System.out.println("      WELCOME TO MEGA MILLIONS!\n" + "=".repeat(38) + "\nYou start with $50.00\n\n" + "-".repeat(38));
+        System.out.println("      WELCOME TO MEGA MILLIONS!\n" + "=".repeat(38) + "\nYou start with $50.00\n");
         
     }
 
     // TODO: Run the game loop (handle multiple rounds of play)
     public static void runGame(){
-        while(true){ //probably needs a condition like while balance > 0
+        String keep_playing = "yes";
+        while(keep_playing.equals("yes") && (int)balance >= 2) {
             playRound();
+            if((int)balance >= 2) keep_playing = getYesNo("Do you want to play again?");
         }
     }
 
@@ -38,6 +40,7 @@ public class MegaMillions {
         //number selection
         int[] userNums = new int[5];
         int megaballValue = 0;
+        System.out.printf("-".repeat(38) +"\nCurrent Balance: $%.2f\n" + "-".repeat(38)+"\n",balance);
         String quickPickChoice = getYesNo("Do you want to Quick Pick?");
 
         if(quickPickChoice.equals("yes")){
@@ -63,8 +66,11 @@ public class MegaMillions {
         }else{
             System.out.println("Yo something goofed up with quick pick choice somehow cause it equals " + quickPickChoice);
         }
+        String megaplierChoice = "no";
+        if((int)balance - 2 >= 1){
+            megaplierChoice = getYesNo("Do you want to add Megaplier for $1?");
+        }
 
-        String megaplierChoice = getYesNo("Do you want to add Megaplier for $1?");
         int megaplier = 1;
         if(megaplierChoice.equals("yes")){
             megaplier = getRandomMegaplier();
@@ -87,18 +93,26 @@ public class MegaMillions {
         System.out.println("=".repeat(38));
 
         int roundWinnings = getPrize(countMatches(userNums,randomNumbers),(megaballValue == actualMegaball)) * megaplier;
+        //debug line
+        //roundWinnings = getPrize(5,true) * megaplier;
+
         System.out.println("You won: $" + roundWinnings);
         //update balance
-        updateBalance();
+        updateBalance(ticketCost, roundWinnings);
+        System.out.printf("New Balance: $%.2f\n",balance);
     }
     // TODO: Update balance after ticket purchase and winnings
-    public static void updateBalance(){
-        //update the balance
+    public static void updateBalance(int cost, int winnings){
+        balance = balance - cost + winnings;
+        totalSpent += cost;
+        totalWinnings += winnings;
     }
 
     // TODO: Print game summary (total spent, total winnings, final balance)
     public static void printGameSummary(){
-
+        System.out.println("\n"+"=".repeat(38) + "\n              GAME OVER\n" + "=".repeat(38));
+        System.out.printf("Total Spent: $%.2f\nTotal Winnings: $%.2f\nFinal Balance: $%.2f\n",totalSpent,totalWinnings,balance);
+        System.out.print("=".repeat(38));
     }
 
     // TODO: Generate an array of 5 unique random numbers (1-70)
