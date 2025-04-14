@@ -50,6 +50,10 @@ class Mammal extends Animal{
         System.out.println(this.name + ": " + sound);
     }
 
+    public void performTrick(){
+        System.out.println(this.name + " did a 360 one block jump!");
+    }
+
 }
 
 
@@ -80,6 +84,13 @@ class Cat extends Mammal{
         System.out.println(this.name + " says: Meow!");
     }
 
+    @Override
+    public boolean equals(Object animal) {
+        if(animal instanceof Cat){
+            return ((Cat) animal).name == this.name;
+        }
+        return false;
+    }
 }
 
 
@@ -115,22 +126,63 @@ class Reptile extends Animal{
     }
 }
 
+class Crustacean extends Animal{
+    Crustacean(String name){
+        super(name);
+    }
+
+    @Override
+    public void speak(){
+        System.out.println(this.name + " says: agagagagagagagag! spongebob me boy! money!!");
+    }
+}
+
+//cannot inherit from final human
+//class Bill extends Human{
+//
+//}
 
 // Main class to test
 // TODO: Define class AnimalKingdomTest with a main method
 class AnimalKingdomTest{
     public static void main(String[] args) {
-        System.out.println("this is a test");
+        // - Create Animal a1 = new Dog("Buddy")
+        Animal a1 = new Dog("Buddy");
+        // - Create Animal a2 = new Cat("Whiskers")
+        Animal a2 = new Cat("Whiskers");
+        // - Call speak() on both (demonstrating polymorphism)
+        a1.speak();
+        a2.speak();
+        // - Print both using System.out.println
+        System.out.println(a1);
+        System.out.println(a2);
+        // - Use equals() to compare a1 to a new Dog("Buddy")
+        System.out.println(a1.equals(new Dog("Buddy")));
+
+        //testing additional todos
+        System.out.println();
+        Animal a3 = new Crustacean("Mr. Krabs");
+        a3.speak();
+
+        Animal a4 = new Dog("Jared");
+        Animal a5 = new Cat("Jared");
+        System.out.println(a4.equals(a5)); //expected true
+        System.out.println(a5.equals(a4)); //expected false
+        ((Mammal)a5).performTrick(); //downcasting i think?
+
     }
 }
-// - Create Animal a1 = new Dog("Buddy")
-// - Create Animal a2 = new Cat("Whiskers")
-// - Call speak() on both (demonstrating polymorphism)
-// - Print both using System.out.println
-// - Use equals() to compare a1 to a new Dog("Buddy")
+
 
 // Additional TODOs:
 // 1. Create a new subclass of Animal (e.g., Bird) and override speak()
+//done
+
 // 2. Try to extend Human – what happens and why?
+// "cannot inherit from final human" error because human is a final. it will not compile because it's trying to extend from a constant
+
 // 3. Override equals() in Dog or Cat to also check the type
+//done
+
 // 4. Add a method to Mammal called performTrick() and call it via downcasting
+//done
