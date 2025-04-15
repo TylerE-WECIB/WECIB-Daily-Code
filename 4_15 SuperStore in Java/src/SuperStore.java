@@ -139,6 +139,17 @@ final class Toy extends Product{
     }
 }
 
+class Coupon{
+    final double discountRate;
+
+    public Coupon(double discountRate, Product product){
+        this.discountRate = discountRate;
+        product.price = Double.parseDouble(String.format("%.2f",product.getPrice() * (1-discountRate)));
+        System.out.printf("%d%% off coupon applied to %s\n",Math.round(discountRate*100), product.getName());
+
+    }
+}
+
 // TODO: Define class SuperStoreTest with a main method
 class SuperStoreTest{
 
@@ -160,6 +171,9 @@ class SuperStoreTest{
         // - Call equals() to compare two products with the same ID and name
         System.out.println(rice.equals(jasmineRice)); //expected false
         System.out.println(beyblade.equals(beyblade2)); //expected true
+        System.out.println("\n=== Additional TODOs ===");
+        Coupon twentyPercentOff = new Coupon(0.20,jasmineRice);
+        System.out.println(jasmineRice);
 
     }
 
