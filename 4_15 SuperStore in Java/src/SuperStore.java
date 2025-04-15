@@ -9,7 +9,7 @@ class Product{
     // - A private final int productId
     private final int productId;
     // - A public static int nextId to help generate unique IDs
-    public static int nextId;
+    public static int nextId; //starts at 0
     // - A constructor that sets name, price, and assigns a unique ID
 
     /**
@@ -18,8 +18,7 @@ class Product{
      * @param price price of the product
      */
     public Product(String name, double price){
-        this.productId = nextId;
-        nextId += 1;
+        this.productId = nextId++;
         this.name = name;
         this.price = price;
     }
@@ -140,15 +139,28 @@ final class Toy extends Product{
     }
 }
 
-
 // TODO: Define class SuperStoreTest with a main method
 class SuperStoreTest{
 
     public static void main(String[] args) {
         // - Create at least one instance of each subclass
+        Product switch2 = new Electronics("Nintendo Switch 2", 449.99, "Nintendo", true);
+        Product rice = new Grocery("Rice",5.99,20,true);
+        Product jasmineRice = new Grocery("Rice",50.99,500,true);
+        Product beyblade = new Toy("Beyblade",10.99,2);
+        Product beyblade2 = beyblade;
+
         // - Store them in a Product[] array
+        Product[] products = {switch2, rice, jasmineRice, beyblade, beyblade2};
         // - Loop through and print each item
+        for(Product p: products){
+            System.out.println(p);
+            System.out.println(); //newline
+        }
         // - Call equals() to compare two products with the same ID and name
+        System.out.println(rice.equals(jasmineRice)); //expected false
+        System.out.println(beyblade.equals(beyblade2)); //expected true
+
     }
 
 
@@ -157,6 +169,12 @@ class SuperStoreTest{
 
 // Additional TODOs:
 // 1. Try to extend Toy — what happens and why?
+//error. Cannot inherit from final toy because it's final and cannot be extended.
+
 // 2. Make a class Coupon with a final discountRate and apply it to a Product
+
+
 // 3. Add a method to Electronics called warrantyInfo() and mark it final
+
+
 // 4. Use access modifiers appropriately and explain your choices in comments
