@@ -71,7 +71,7 @@ class Electronics extends Product{
      * @param brand brand of the electronic
      * @param hasBattery whether or not the electronic has a battery in it
      */
-    public Electronics(String name, double price, String brand, boolean hasBattery){
+    public Electronics(String name, double price, String brand, boolean hasBattery){ //constructor is public so its accessible anywhere
         super(name, price);
         this.brand = brand;
         this.hasBattery = hasBattery;
@@ -79,11 +79,11 @@ class Electronics extends Product{
     // - Override toString() to include brand and battery status
 
     @Override
-    public String toString() {
+    public String toString() { //toString is public so it's accessible everywhere and wont risk some conflict with the original
         return super.toString() + "\nBrand: " + brand + "\nHas Battery: " + hasBattery;
     }
 
-    public final void warrantyInfo(){
+    public final void warrantyInfo(){ //warranty info is public so you can get the warranty info from anywhere
         System.out.println("YOU WILL NEVER GET A WARRANTY ON THIS PRODUCT. IF YOU EVEN LOOK AT IT YOU WILL OWE US MONEY");
     }
 }
@@ -104,7 +104,7 @@ class Grocery extends Product{
      * @param weight weight for the grocery in kg
      * @param isPerishable whether or not the grocery is perishable (like foodstuff)
      */
-    public Grocery(String name, double price, double weight, boolean isPerishable){
+    public Grocery(String name, double price, double weight, boolean isPerishable){ //constructor is public so its accessible anywhere
         super(name, price);
         this.weight = weight;
         this.isPerishable = isPerishable;
@@ -112,7 +112,7 @@ class Grocery extends Product{
     // - Override toString() to include weight and perishability
 
     @Override
-    public String toString() {
+    public String toString() { //toString is public so it's accessible everywhere and wont risk some conflict with the original
         return super.toString() + "\nWeight (kg): " + weight + "\nIs Perishable: " + isPerishable;
     }
 }
@@ -130,7 +130,7 @@ final class Toy extends Product{
      * @param price price of the toy
      * @param minAge minimum age of the toy (probably in years)
      */
-    public Toy(String name, double price, int minAge){
+    public Toy(String name, double price, int minAge){ //constructor is public so its accessible anywhere
         super(name, price);
         this.minAge = minAge;
 
@@ -138,26 +138,30 @@ final class Toy extends Product{
     // - Override toString() to include minAge
 
     @Override
-    public String toString() {
+    public String toString() { //toString is public so it's accessible everywhere and wont risk some conflict with the original
         return super.toString() + "\nMin Age: " + minAge;
     }
 }
 
 class Coupon{
-    final double discountRate;
+    private final double discountRate; //private for data security. using a getter method instead.
 
-    public Coupon(double discountRate, Product product){
+    public Coupon(double discountRate, Product product){ //constructor method is public so its accessible anywhere
         this.discountRate = discountRate;
-        product.price = Double.parseDouble(String.format("%.2f",product.getPrice() * (1-discountRate)));
-        System.out.printf("%d%% off coupon applied to %s\n",Math.round(discountRate*100), product.getName());
+        product.price = Double.parseDouble(String.format("%.2f",product.getPrice() * (1-this.discountRate))); //applies discount rate to the product price. so if the discount is 0.2 it does product price *= 0.8 and formats it to 2 decimal places.
+        System.out.printf("%d%% off coupon applied to %s\n",Math.round(this.discountRate*100), product.getName());
 
+    }
+
+    public double getDiscountRate() { //getters need to be public to be accessible everywhere
+        return discountRate;
     }
 }
 
 // TODO: Define class SuperStoreTest with a main method
 class SuperStoreTest{
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { //main function it needs to be public to run lol
         // - Create at least one instance of each subclass
         Product switch2 = new Electronics("Nintendo Switch 2", 449.99, "Nintendo", true);
         Product rice = new Grocery("Rice",5.99,20,true);
@@ -198,3 +202,4 @@ class SuperStoreTest{
 //done
 
 // 4. Use access modifiers appropriately and explain your choices in comments
+//done. ignored the access modifiers where i didn't have a choice
