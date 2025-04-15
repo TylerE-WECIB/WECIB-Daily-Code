@@ -17,7 +17,7 @@ class Product{
      * @param name name of the product
      * @param price price of the product
      */
-    public Product(String name, double price){
+    public Product(String name, double price){ //constructor is public so its accessible anywhere
         this.productId = nextId++;
         this.name = name;
         this.price = price;
@@ -41,12 +41,12 @@ class Product{
     }
     // - Override toString() to return formatted product details
     @Override
-    public String toString(){
+    public String toString(){ //toString is public so it's accessible everywhere and wont risk some conflict with the original
         return "Product Name: " + this.name + "\nPrice: " + this.price + "\nProduct ID: " + this.productId;
     }
     // - Override equals(Object o) to compare name and productId
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o){ //same thing as before equals is public so its accessible everywhere and wont risk conflict
         if(o instanceof Product){
             return this.name.equals(((Product)o).name) && this.productId == ((Product) o).productId;
         }
@@ -81,6 +81,10 @@ class Electronics extends Product{
     @Override
     public String toString() {
         return super.toString() + "\nBrand: " + brand + "\nHas Battery: " + hasBattery;
+    }
+
+    public final void warrantyInfo(){
+        System.out.println("YOU WILL NEVER GET A WARRANTY ON THIS PRODUCT. IF YOU EVEN LOOK AT IT YOU WILL OWE US MONEY");
     }
 }
 
@@ -174,6 +178,8 @@ class SuperStoreTest{
         System.out.println("\n=== Additional TODOs ===");
         Coupon twentyPercentOff = new Coupon(0.20,jasmineRice);
         System.out.println(jasmineRice);
+        ((Electronics)switch2).warrantyInfo();
+
 
     }
 
@@ -186,9 +192,9 @@ class SuperStoreTest{
 //error. Cannot inherit from final toy because it's final and cannot be extended.
 
 // 2. Make a class Coupon with a final discountRate and apply it to a Product
-
+//done
 
 // 3. Add a method to Electronics called warrantyInfo() and mark it final
-
+//done
 
 // 4. Use access modifiers appropriately and explain your choices in comments
