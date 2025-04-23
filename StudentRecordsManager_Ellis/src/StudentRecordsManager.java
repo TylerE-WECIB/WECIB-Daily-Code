@@ -84,6 +84,7 @@ public class StudentRecordsManager {
              * Provide a clear message indicating which file couldn't be found
              * and possibly suggest solutions (check spelling, path, etc.)
              */
+
         } catch (IOException e) {
             /**
              * TODO: Handle general I/O exceptions
@@ -104,7 +105,7 @@ public class StudentRecordsManager {
      */
     public List<Student> readStudentRecords(String filename) throws IOException {
         List<Student> students = new ArrayList<>();
-        
+
         /**
          * TODO: Implement using try-with-resources to read the file
          * 
@@ -125,6 +126,18 @@ public class StudentRecordsManager {
          * For each exception, provide clear error messages that include the line number
          * where the error occurred for easier debugging.
          */
+        try(BufferedReader br = new BufferedReader(new FileReader(filename))){
+            while(br.lines() != null){
+                String[] line = br.readLine().split(",");
+            }
+
+        }catch (NumberFormatException e){
+
+        }catch (InvalidGradeException e){
+
+        }catch (ArrayIndexOutOfBoundsException e){
+
+        }
         
         return students;
     }
@@ -159,5 +172,7 @@ public class StudentRecordsManager {
          * Consider using a StringBuilder for building complex strings
          * before writing them to the file.
          */
+
+        PrintWriter pr = new PrintWriter(new FileWriter(filename));
     }
 }

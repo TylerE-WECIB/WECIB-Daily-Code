@@ -15,7 +15,7 @@ public class InvalidGradeException extends Exception {
      * specific details about what went wrong with the grade value.
      */
     InvalidGradeException(String message){
-        
+        super(message); //unsure if this is what im supposed to do
     }
 }
 
