@@ -37,6 +37,8 @@ public class StudentRecordsManager {
              * This should pass the inputFile and outputFile variables to the method
              */
 
+            manager.processStudentRecords(inputFile,outputFile);
+
         } catch (Exception e) {
             /**
              * TODO: Handle general exceptions
@@ -45,6 +47,8 @@ public class StudentRecordsManager {
              * - Include the exception's message for debugging purposes
              * - Consider using System.err instead of System.out for error messages
              */
+
+            System.out.println("An error has occurred with processing the student record :(\n" + e.getMessage());
         } finally {
             /**
              * The scanner is closed in the finally block to ensure resources are
@@ -71,6 +75,8 @@ public class StudentRecordsManager {
              * 2. Call writeResultsToFile to output the processed data
              * 3. Print a success message to the console
              */
+            writeResultsToFile(readStudentRecords(inputFile),outputFile);
+            System.out.println("Read and write successful!");
         } catch (FileNotFoundException e) {
             /**
              * TODO: Handle file not found exception
