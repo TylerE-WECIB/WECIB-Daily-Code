@@ -67,6 +67,7 @@ public class StudentRecordsManager {
      * @param outputFile Path to the output file where results will be written
      */
     public void processStudentRecords(String inputFile, String outputFile){
+
         try {
             /**
              * TODO: Call readStudentRecords and writeResultsToFile methods
@@ -84,6 +85,7 @@ public class StudentRecordsManager {
              * Provide a clear message indicating which file couldn't be found
              * and possibly suggest solutions (check spelling, path, etc.)
              */
+            System.out.println(e.getMessage() + "\nCheck the spelling and path of the input and output file");
 
         } catch (IOException e) {
             /**
@@ -127,16 +129,29 @@ public class StudentRecordsManager {
          * where the error occurred for easier debugging.
          */
         try(BufferedReader br = new BufferedReader(new FileReader(filename))){
-            while(br.lines() != null){
+            while(br.ready()){
                 String[] line = br.readLine().split(",");
+                System.out.println(Arrays.toString(line)); //debug
+                String studentId = line[0];
+                String name = line[1];
+                int[] grades = {Integer.parseInt(line[2]),Integer.parseInt(line[3]),Integer.parseInt(line[4]),Integer.parseInt(line[5])};
+
+                for(int i: grades){
+                    if(i > 100 || i < 0){
+                        throw new InvalidGradeException("Grade out of bounds :( Must be between 0 and 100");
+                    }
+                }
+
+                Student student = new Student(studentId,name,grades);
+                students.add(student);
             }
 
         }catch (NumberFormatException e){
-
+            System.out.println("One of the grades wasn't an integer. Make sure they're entered correctly.");
         }catch (InvalidGradeException e){
-
+            System.out.println(e.getMessage());
         }catch (ArrayIndexOutOfBoundsException e){
-
+            System.out.println("There wasn't enough grades. The student should have 4.");
         }
         
         return students;
@@ -172,7 +187,33 @@ public class StudentRecordsManager {
          * Consider using a StringBuilder for building complex strings
          * before writing them to the file.
          */
+//        System.out.println(students.toString());
+        try(PrintWriter pr = new PrintWriter(new FileWriter(filename));){
+            int totalStudents = 0;
+            double gradeSum = 0;
+            double classAvg = 0.0;
+            //A,B,C,D,F
+            int[] letterDist = {0,0,0,0,0};
+            for(int i = 0; i < students.size(); i++){
+                totalStudents += 1;
+                gradeSum += students.get(i).getAverageGrade();
+                switch(students.get(i).getLetterGrade()){
+                    case 'A' -> letterDist[0] += 1;
+                    case 'B' -> letterDist[1] += 1;
+                    case 'C' -> letterDist[2] += 1;
+                    case 'D' -> letterDist[3] += 1;
+                    case 'F' -> letterDist[4] += 1;
+                }
+                pr.write(students.get(i).toString() + "\n\n");
+            }
+            classAvg = gradeSum / totalStudents;
+            pr.write(String.format("Total Students: %d\nClass Average: %.2f\nGrade Distribution:\nA - %d\nB - %d\nC - %d\nD - %d\nF - %d",totalStudents,classAvg,letterDist[0],letterDist[1],letterDist[2],letterDist[3],letterDist[4]));
+        }catch (Exception e){
+            System.out.println("idk man something broke with the writing function\n" + e.getMessage());
+        }
 
-        PrintWriter pr = new PrintWriter(new FileWriter(filename));
+
+
+
     }
 }

@@ -1,0 +1,50 @@
+ID: 1001
+Name: John Smith
+Grades: [85, 92, 78, 89]
+Average: 86.00
+Letter Grade: B
+
+ID: 1002
+Name: Sarah Johnson
+Grades: [95, 88, 92, 97]
+Average: 93.00
+Letter Grade: A
+
+ID: 1003
+Name: Michael Brown
+Grades: [75, 68, 72, 63]
+Average: 69.50
+Letter Grade: D
+
+ID: 1004
+Name: Emily Davis
+Grades: [98, 95, 91, 94]
+Average: 94.50
+Letter Grade: A
+
+ID: 1005
+Name: James Wilson
+Grades: [45, 52, 49, 55]
+Average: 50.25
+Letter Grade: F
+
+ID: 1006
+Name: Maria Garcia
+Grades: [82, 79, 85, 81]
+Average: 81.75
+Letter Grade: B
+
+ID: 1007
+Name: Robert Taylor
+Grades: [73, 77, 70, 75]
+Average: 73.75
+Letter Grade: C
+
+Total Students: 7
+Class Average: 78.39
+Grade Distribution:
+A - 2
+B - 2
+C - 1
+D - 1
+F - 1
