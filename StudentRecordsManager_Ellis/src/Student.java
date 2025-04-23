@@ -1,9 +1,16 @@
+import java.util.Arrays;
+
 /**
  * Class representing a student record with grades.
  * This class demonstrates basic OOP principles and data encapsulation.
  */
 public class Student {
     // TODO: Add private fields for studentId, name, grades array, averageGrade, and letterGrade
+    private String studentId;
+    private String name;
+    private int[] grades;
+    private double averageGrade;
+    private char letterGrade;
     
     /**
      * Constructor to initialize a Student object
@@ -13,6 +20,11 @@ public class Student {
      */
     public Student(String studentId, String name, int[] grades) {
         // TODO: Initialize fields and calculate average and letter grade
+        this.studentId = studentId;
+        this.name = name;
+        this.grades = grades;
+        this.averageGrade = calculateAverage();
+        this.letterGrade = determineLetterGrade();
     }
     
     /**
@@ -21,7 +33,11 @@ public class Student {
      */
     private double calculateAverage() {
         // TODO: Calculate and return the average of all grades
-        return 0.0; // Placeholder return
+        int gradeSum = 0;
+        for (int grade : this.grades) {
+            gradeSum += grade;
+        }
+        return (double)gradeSum / (double)this.grades.length;
     }
     
     /**
@@ -35,10 +51,39 @@ public class Student {
         //       C: 70-79
         //       D: 60-69
         //       F: 0-59
-        return 'F'; // Placeholder return
+        if(this.averageGrade >= 90){
+            return 'A';
+        } else if (this.averageGrade >= 80) {
+            return 'B';
+        } else if (this.averageGrade >= 70) {
+            return 'C';
+        } else if (this.averageGrade >= 60) {
+            return 'D';
+        }
+        return 'F';
     }
     
     // TODO: Implement getters for all fields
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int[] getGrades() {
+        return grades;
+    }
+
+    public double getAverageGrade() {
+        return averageGrade;
+    }
+
+    public char getLetterGrade() {
+        return letterGrade;
+    }
     // Hint: Follow standard Java naming conventions for getters (getXxx method names)
     
     /**
@@ -51,6 +96,8 @@ public class Student {
         //       - ID, name, all grades, average (formatted to 2 decimal places), and letter grade
         // Hint: Use StringBuilder to efficiently build the string as shown in the slides
         // Hint: Use String.format("%.2f", averageGrade) to format the average to 2 decimal places
-        return ""; // Placeholder return
+        StringBuilder returnString = new StringBuilder("ID: %s\nName: %s\nGrades: %s\nAverage: %.2f\nLetter Grade: %c");
+        return returnString.toString().formatted(getStudentId(),getName(), Arrays.toString(getGrades()),getAverageGrade(),getLetterGrade());
+//        return String.format("ID: %s\nName: %s\nGrades: %s\nAverage: %.2f\nLetter Grade: %c",getStudentId(),getName(), Arrays.toString(getGrades()),getAverageGrade(),getLetterGrade()); // Placeholder return
     }
 }

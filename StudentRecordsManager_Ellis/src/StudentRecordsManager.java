@@ -36,6 +36,7 @@ public class StudentRecordsManager {
              * 
              * This should pass the inputFile and outputFile variables to the method
              */
+
         } catch (Exception e) {
             /**
              * TODO: Handle general exceptions
@@ -61,11 +62,11 @@ public class StudentRecordsManager {
      * @param inputFile Path to the input file containing student records
      * @param outputFile Path to the output file where results will be written
      */
-    public void processStudentRecords(String inputFile, String outputFile) {
+    public void processStudentRecords(String inputFile, String outputFile){
         try {
             /**
              * TODO: Call readStudentRecords and writeResultsToFile methods
-             * 
+             *
              * 1. Call readStudentRecords to get a list of Student objects
              * 2. Call writeResultsToFile to output the processed data
              * 3. Print a success message to the console
@@ -73,14 +74,14 @@ public class StudentRecordsManager {
         } catch (FileNotFoundException e) {
             /**
              * TODO: Handle file not found exception
-             * 
+             *
              * Provide a clear message indicating which file couldn't be found
              * and possibly suggest solutions (check spelling, path, etc.)
              */
         } catch (IOException e) {
             /**
              * TODO: Handle general I/O exceptions
-             * 
+             *
              * These could be permission issues, disk full, etc.
              * Provide helpful information about the nature of the I/O problem.
              */
